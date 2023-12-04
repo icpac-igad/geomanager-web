@@ -1,0 +1,240 @@
+{% extends "base.html" %}
+{% load wagtailimages_tags static lazyimages_tags wagtailcore_tags  wagtailiconchooser_tags%}
+
+
+{% block body_class %}homepage{% endblock %}
+
+{% block extra_css %}
+{% endblock extra_css %}
+
+{% block content %}
+<style>
+
+    .hero-banner {
+        background-size: cover;
+        background-position: center;
+        color: #fff;
+        background-repeat: no-repeat;
+        padding: 10rem 0;
+        background-color: #555;
+        position: relative
+    }
+
+    .banner-title {
+        font-size: 50px;
+        line-height: 55px;
+        font-weight: 500;
+        color: #fff;
+        text-shadow: 1px 2px 2px #555;
+    }
+
+    .banner-subtitle {
+        font-size: 18px;
+        line-height: 30px;
+        max-width: 48rem;
+        color: #fff;
+        text-shadow: 1px 1px 1px #555;
+    }
+
+    .map-btn {
+        margin-top: 20px;
+        background-color: #198754;
+        color: #fff;
+        border-color: #198754;
+    }
+
+    .banner-arrow {
+        position: absolute;
+        display: flex;
+        justify-content: center;
+        width: 100%;
+        bottom: -20px
+    }
+
+    .banner-arrow button {
+        background-color: #198754;
+        height: 40px;
+        width: 40px;
+        border-radius: 50%;
+        border: none;
+        cursor: pointer;
+    }
+
+    .banner-arrow button svg {
+        height: 15px;
+        width: 15px;
+        fill: #fff;
+    }
+
+    section:nth-child(even) {
+        background-color: #f8f9fb;
+    }
+
+    .section {
+        padding: 60px 0;
+    }
+
+    .section-title {
+        display: flex;
+        justify-content: center;
+        font-size: 32px;
+        width: 100%;
+        padding-bottom: 40px;
+        font-weight: 500;
+    }
+
+    .intro-text {
+        font-size: 24px;
+        color: #198754;
+    }
+
+    .intro-image {
+        height: 360px;
+        width: 100%;
+    }
+
+    .intro-image img {
+        height: 100%;
+        width: 100%;
+        object-fit: contain;
+    }
+
+
+    .feature-icon-fill {
+        background-color: #198754;
+    }
+
+
+    .feature-icon {
+        width: fit-content;
+        padding: 12px;
+        border-radius: 4px;
+        display: flex;
+        align-items: center;
+    }
+
+
+    .feature-icon svg {
+        height: 40px;
+        width: 40px;
+        fill: #fff;
+    }
+
+    .icon-fill svg {
+        fill: #198754;
+    }
+
+    .feature-title {
+        padding: 10px 0;
+        font-weight: 500;
+        text-align: center;
+    }
+
+    .feature-description {
+        text-align: center;
+        color: #999;
+    }
+
+
+</style>
+
+
+{% if page.banner_image %}
+
+{% image page.banner_image original as b_img %}
+
+<section class="hero hero-banner progressive__bg progressive--not-loaded" data-progressive="{{ b_img.url }}"
+         style="background-image: url({{ b_img.lazy_url }});">
+    <div class="hero-body" style="display: flex;align-items: center">
+        <div class="container">
+            <h1 class="title banner-title">
+                {{page.banner_title}}
+            </h1>
+            {% if page.banner_subtitle %}
+            <h2 class="banner-subtitle">
+                {{page.banner_subtitle}}
+            </h2>
+
+            <a class="button is-rounded map-btn"> Explore Map</a>
+            {% endif %}
+        </div>
+    </div>
+    <div class="banner-arrow">
+        <button>
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" id="arrow-down-394c3635--sprite">
+                <path d="M31.68 8.593L30.077 6.99c-.214-.214-.46-.321-.738-.321s-.523.107-.737.321L16 19.591 3.399 6.99c-.214-.214-.46-.321-.738-.321s-.524.107-.738.321L.32 8.593c-.214.214-.321.46-.321.738s.107.524.321.737L15.262 25.01c.214.214.46.321.738.321s.523-.107.737-.321L31.68 10.068c.214-.214.32-.46.32-.737s-.106-.524-.32-.738z"></path>
+            </svg>
+        </button>
+    </div>
+</section>
+
+
+<section class="section">
+    <div class="container">
+        <div class="columns is-mobile is-multiline">
+            <div class="column is-half-desktop is-full-mobile is-flex is-align-items-center intro-text">
+                {{page.intro_text|richtext}}
+            </div>
+            <div class="column is-flex is-align-items-center">
+                {% image page.intro_image original as intro_img %}
+                <figure class="intro-image">
+                    <img class="progressive__img progressive--not-loaded" data-progressive="{{ intro_img.url }}"
+                         src="{{ intro_img.lazy_url }}"
+                         alt="{{ intro_img.alt }}"/>
+                </figure>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<section class="section">
+    <div class="container">
+        <h1 class="has-text-centered section-title">Features</h1>
+
+        <div class="columns is-mobile is-multiline is-flex is-justify-content-center">
+            {%for feature in page.feature_blocks%}
+            <div class="column is-half-mobile is-one-quarter-desktop is-flex is-flex-direction-column is-justify-content-center is-align-items-center">
+                <div class="feature-icon feature-icon-fill">
+                    {% svg_icon feature.value.icon %}
+                </div>
+
+                <div class="feature-title">
+                    {{feature.value.title}}
+                </div>
+
+                <div class="feature-description">
+                    {{feature.value.description}}
+                </div>
+
+            </div>
+
+            {% endfor %}
+        </div>
+    </div>
+</section>
+
+<section class="section">
+    <div class="container p-6">
+        <h1 class="has-text-centered section-title">What's Included</h1>
+        <div class="columns is-mobile is-multiline is-flex is-justify-content-center">
+            {%for category in page.dataset_blocks%}
+            <div class="column is-half-mobile is-one-quarter-desktop is-flex is-flex-direction-column is-justify-content-center is-align-items-center">
+                <div class="feature-icon icon-fill">
+                    {% svg_icon category.value.category_obj.icon %}
+                </div>
+
+                <div class="feature-title">
+                    {{category.value.title}}
+                </div>
+
+            </div>
+
+            {% endfor %}
+        </div>
+    </div>
+</section>
+
+{% endif %}
+
+{% endblock content %}
