@@ -1,12 +1,15 @@
 from django.db import models
+from django.urls import reverse
 from django.utils.translation import gettext_lazy as _
+from geomanager.models import Category
 from wagtail.admin.panels import FieldPanel, MultiFieldPanel
+from wagtail.api.v2.utils import get_full_url
 from wagtail.fields import RichTextField, StreamField
 from wagtail.models import Page
 from wagtailcache.cache import WagtailCacheMixin
 from wagtailmetadata.models import MetadataPageMixin
 
-from home.blocks import InfoBlock, FeatureBlock, DatasetCategoryBlock
+from home.blocks import InfoBlock, FeatureBlock
 
 
 class HomePage(MetadataPageMixin, WagtailCacheMixin, Page):
@@ -56,17 +59,6 @@ class HomePage(MetadataPageMixin, WagtailCacheMixin, Page):
         verbose_name=_("Features"),
     )
 
-    dataset_blocks = StreamField(
-        [
-            ("category", DatasetCategoryBlock(label=_("Dataset Category")),),
-
-        ],
-        null=True,
-        blank=True,
-        use_json_field=True,
-        verbose_name=_("Available Datasets"),
-    )
-
     content_panels = Page.content_panels + [
 
         MultiFieldPanel(
@@ -88,5 +80,17 @@ class HomePage(MetadataPageMixin, WagtailCacheMixin, Page):
 
         FieldPanel('info_blocks'),
         FieldPanel('feature_blocks'),
-        FieldPanel('dataset_blocks'),
     ]
+
+    def get_context(self, request, *args, **kwargs):
+        context = super(HomePage, self).get_context(request, *args, **kwargs)
+
+        dataset_categories = Category.objects.filter(active=True, public=True)
+
+        context.update({"dataset_categories": dataset_categories})
+
+        mapviewer_url = get_full_url(request, reverse("mapview"))
+
+        context.update({"mapviewer_url": mapviewer_url})
+
+        return context
