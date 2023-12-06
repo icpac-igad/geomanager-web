@@ -9,10 +9,15 @@ from wagtail.models import Page
 from wagtailcache.cache import WagtailCacheMixin
 from wagtailmetadata.models import MetadataPageMixin
 
-from home.blocks import InfoBlock, FeatureBlock
+from .blocks import InfoBlock, FeatureBlock
 
 
 class HomePage(MetadataPageMixin, WagtailCacheMixin, Page):
+    template = "home/home_page.html"
+    parent_page_type = ["wagtailcore.Page"]
+    subpage_types = []
+    max_count = 1
+
     banner_image = models.ForeignKey(
         'wagtailimages.Image',
         verbose_name=_("Banner Image"),

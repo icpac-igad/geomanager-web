@@ -178,3 +178,4 @@ dumpdata.json
 docker/volumes
 
 backup/
+data/

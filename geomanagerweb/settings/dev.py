@@ -18,7 +18,9 @@ except ImportError:
 
 CORS_ALLOW_ALL_ORIGINS = True
 
-INSTALLED_APPS = ["daphne", "channels", 'wagtail.contrib.styleguide'] + INSTALLED_APPS
+INSTALLED_APPS += [
+    'wagtail.contrib.styleguide'
+]
 
 # used in dev with Mac OS
 GDAL_LIBRARY_PATH = env.str('GDAL_LIBRARY_PATH', None)

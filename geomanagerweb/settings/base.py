@@ -37,8 +37,11 @@ INSTALLED_APPS = [
     "home",
     "geomanager",
 
-    "django_deep_translator",
+    "daphne",
+    "channels",
+    "base",
 
+    "django_deep_translator",
     "adminboundarymanager",
     "django_large_image",
     'django_json_widget',
@@ -176,7 +179,9 @@ STATICFILES_DIRS = [
 # ManifestStaticFilesStorage is recommended in production, to prevent outdated
 # JavaScript / CSS assets being served from cache (e.g. after a Wagtail upgrade).
 # See https://docs.djangoproject.com/en/4.2/ref/contrib/staticfiles/#manifeststaticfilesstorage
-STATICFILES_STORAGE = "django.contrib.staticfiles.storage.ManifestStaticFilesStorage"
+# STATICFILES_STORAGE = "django.contrib.staticfiles.storage.ManifestStaticFilesStorage"
+
+STATICFILES_STORAGE = "base.storage.ManifestStaticFilesStorageNotStrict"
 
 STATIC_ROOT = os.path.join(BASE_DIR, "static")
 STATIC_URL = "/static/"
@@ -211,7 +216,7 @@ CACHES = {
     'default': {
         'BACKEND': 'django.core.cache.backends.filebased.FileBasedCache',
         'LOCATION': os.path.join(BASE_DIR, 'cache'),
-        'KEY_PREFIX': 'wagtailcache',
+        'KEY_PREFIX': 'cms_cache',
         'TIMEOUT': 3600,  # one hour (in seconds)
     }
 }
@@ -219,3 +224,5 @@ CACHES = {
 # RECAPTCHA Settings
 RECAPTCHA_PUBLIC_KEY = env.str('RECAPTCHA_PUBLIC_KEY', '')
 RECAPTCHA_PRIVATE_KEY = env.str('RECAPTCHA_PRIVATE_KEY', '')
+
+GEOMANAGER_AUTO_INGEST_RASTER_DATA_DIR = env.str("GEOMANAGER_AUTO_INGEST_RASTER_DATA_DIR", "")
