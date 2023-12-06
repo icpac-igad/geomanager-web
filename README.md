@@ -24,7 +24,7 @@ cp .env.sample .env
 
 #### 4. Edit the `.env` file and set the environment variables.
 
-See the [Environment Variables](#environment-variables) section for more details.
+See the [Environment Variables](#environmental-variables) section for more details.
 
 #### 5. Build the Docker images
 
@@ -46,10 +46,11 @@ You can monitor the logs of the containers with the following command:
 
 #### 2. Access the CMS
 
-Open your browser and go to `http://localhost:8000/<ADMIN_URL_PATH>` and login with the superuser credentials you
-created in the previous step.
+Open your browser and go to `http://<ip>:<port>/<ADMIN_URL_PATH>` and login with the superuser credentials you created
+in the previous step.
 
-Replace `<ADMIN_URL_PATH>` with the value of the `ADMIN_URL_PATH` variable in your `.env` file.
+Replace  `<ip>`, `<port>` with the correct values and   `<ADMIN_URL_PATH>` with the value of the `ADMIN_URL_PATH`
+variable in your `.env` file.
 
 #### 3. Update the Site Settings
 
@@ -105,4 +106,4 @@ as `docker-compose.yml` file
 | GOOGLE_CUSTOM_SEARCH_CX      |                                                                                                                                                                                      | NO       |                                         |
 | GOOGLE_SEARCH_API_KEY        |                                                                                                                                                                                      | NO       |                                         |
 
-##                        
+##                            
