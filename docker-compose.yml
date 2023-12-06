@@ -48,7 +48,7 @@ services:
       - ALLOWED_HOSTS=${ALLOWED_HOSTS}
       - CSRF_TRUSTED_ORIGINS=${CSRF_TRUSTED_ORIGINS}
       - DATABASE_URL=postgis://${CMS_DB_USER}:${CMS_DB_PASSWORD}@geomanager_db:5432/${CMS_DB_NAME}
-      - MEMCACHED_URI=cms_memcached:11211
+      - MEMCACHED_URI=geomanager_memcached:11211
       - MAPVIEWER_SERVER_URL=http://geomanager_mapviewer:3000
       - WAGTAILADMIN_BASE_URL=${CMS_BASE_URL}
       - LANGUAGE_CODE=${CMS_DEFAULT_LANGUAGE_CODE}
@@ -59,8 +59,8 @@ services:
     ports:
       - "8000"
     volumes:
-      - ${CMS_STATIC_VOLUME}:/home/app/web/static
-      - ${CMS_MEDIA_VOLUME}:/home/app/web/media
+      - ${CMS_STATIC_VOLUME}:/home/app/static
+      - ${CMS_MEDIA_VOLUME}:/home/app/media
       - ${GEOMANAGER_AUTO_INGEST_DATA_VOLUME}:/geomanager/data
       - ./docker/volumes/cms/.cache:/root/.cache
   geomanager_mapviewer:

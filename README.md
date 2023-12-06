@@ -38,11 +38,11 @@ You can monitor the logs of the containers with the following command:
 
 `docker compose logs -f`
 
-### Post Installation Configuration
+## Post Installation Configuration
 
 #### 1. Create a superuser
 
-`docker compose exec geomanager_cms python manage.py createsuperuser`
+`docker compose exec geomanager_web python manage.py createsuperuser`
 
 #### 2. Access the CMS
 
@@ -51,7 +51,7 @@ created in the previous step.
 
 Replace `<ADMIN_URL_PATH>` with the value of the `ADMIN_URL_PATH` variable in your `.env` file.
 
-### 3. Update the Site Settings
+#### 3. Update the Site Settings
 
 From the Wagtail Admin Side Panel, go to `Settings > Sites` and update the site settings.
 
@@ -105,4 +105,4 @@ as `docker-compose.yml` file
 | GOOGLE_CUSTOM_SEARCH_CX      |                                                                                                                                                                                      | NO       |                                         |
 | GOOGLE_SEARCH_API_KEY        |                                                                                                                                                                                      | NO       |                                         |
 
-##                      
+##                        
