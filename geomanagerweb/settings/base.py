@@ -189,6 +189,9 @@ STATIC_URL = "/static/"
 MEDIA_ROOT = os.path.join(BASE_DIR, "media")
 MEDIA_URL = "/media/"
 
+# Django
+FORCE_SCRIPT_NAME = env.str("FORCE_SCRIPT_NAME", default=None)
+
 # Wagtail settings
 
 WAGTAIL_SITE_NAME = env.str("WAGTAIL_SITE_NAME", "GeoManager Web")

@@ -52,6 +52,7 @@ services:
       - MAPVIEWER_SERVER_URL=http://geomanager_mapviewer:3000
       - WAGTAILADMIN_BASE_URL=${CMS_BASE_URL}
       - LANGUAGE_CODE=${CMS_DEFAULT_LANGUAGE_CODE}
+      - FORCE_SCRIPT_NAME=${FORCE_SCRIPT_NAME}
       - GEOMANAGER_AUTO_INGEST_RASTER_DATA_DIR=/geomanager/data
       - DJANGO_SETTINGS_MODULE=geomanagerweb.settings.production
     depends_on:
