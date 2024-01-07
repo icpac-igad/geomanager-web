@@ -164,6 +164,9 @@ USE_L10N = True
 
 USE_TZ = True
 
+# Django
+FORCE_SCRIPT_NAME = env.str("FORCE_SCRIPT_NAME", default=None)
+
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.2/howto/static-files/
 
@@ -185,12 +188,14 @@ STATICFILES_STORAGE = "base.storage.ManifestStaticFilesStorageNotStrict"
 
 STATIC_ROOT = os.path.join(BASE_DIR, "static")
 STATIC_URL = "/static/"
+if FORCE_SCRIPT_NAME:
+    STATIC_URL = FORCE_SCRIPT_NAME + STATIC_URL
 
 MEDIA_ROOT = os.path.join(BASE_DIR, "media")
 MEDIA_URL = "/media/"
 
-# Django
-FORCE_SCRIPT_NAME = env.str("FORCE_SCRIPT_NAME", default=None)
+if FORCE_SCRIPT_NAME:
+    MEDIA_URL = FORCE_SCRIPT_NAME + MEDIA_URL
 
 # Wagtail settings
 
